@@ -2,10 +2,10 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='sanskrit',
-    version='0.1.0',
+    name='sanskrit_util',
+    version='0.1.1.dev1',
     description='Sanskrit utilities',
-    long_description='TODO',
+    long_description='Collection of utilities for analyzing and working with Sanskrit',
 
     url='https://github.com/sanskrit/sanskrit',
     author='learnsanskrit.org',
