@@ -53,7 +53,7 @@ class SimpleAnalyzer(Analyzer):
         self.nominal_endings = util.HashTrie()
         for e in self.session.query(NominalEnding):
             stem_type = e.stem_type
-            is_cons = (stem_type == NominalEnding.CONSONANT_STEM_TYPE)
+            is_cons = stem_type[-1] in sounds.CONSONANTS
             if e.stem_type == "_": 
                 e.stem_type = ""
                 is_cons = True
