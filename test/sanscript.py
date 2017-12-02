@@ -11,7 +11,7 @@ Tests Sanskrit transliteration.
 from __future__ import unicode_literals
 from __future__ import print_function
 
-from sanskrit.transliterate import sanscript as S
+from sanskrit_util.transliterate import sanscript as S
 from . import TestCase
 
 DATA = {

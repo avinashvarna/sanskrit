@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    sanskrit.sandhi
+    sanskrit_util.sandhi
     ~~~~~~~~~~~~~~~
 
     Classes that apply and undo sandhi rules.

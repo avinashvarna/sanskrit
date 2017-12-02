@@ -8,8 +8,8 @@ from __future__ import print_function
 
 import sys
 
-from sanskrit import util
-from sanskrit.schema import *
+from sanskrit_util import util
+from sanskrit_util.schema import *
 
 import sqlalchemy.schema
 

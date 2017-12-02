@@ -1,9 +1,9 @@
 """
-    sanskrit.tagger
+    sanskrit_util.tagger
     ~~~~~~~~~~~~~~~
     Code for converting Sanskrit paragraphs into a list of linguistic
     forms. This is done through a *part-of-speech tagger*
-    (:class:`~sanskrit.tagger.Tagger`) that also removes sandhi and
+    (:class:`~sanskrit_util.tagger.Tagger`) that also removes sandhi and
     identifies the lexical roots that underlie the forms in some passage.
 
     When tagging, a block of text (i.e. a verse or paragraph) is called
@@ -14,7 +14,7 @@
     :license: MIT
 """
 
-from sanskrit import analyze, models, sandhi, schema, util
+from sanskrit_util import analyze, models, sandhi, schema, util
 
 
 class NonForm(object):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    sanskrit.generate
+    sanskrit_util.generate
     ~~~~~~~~~~~~~~~~~
 
     Generators for various Sanskrit forms.
@@ -37,7 +37,7 @@ class NominalGenerator(Generator):
     """
     A generator for nominal forms.
 
-    :param ctx: some :class:`~sanskrit.Context`.
+    :param ctx: some :class:`~sanskrit_util.Context`.
     """
 
     def __init__(self, ctx):

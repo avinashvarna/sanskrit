@@ -1,5 +1,5 @@
 """
-    sanskrit.shell
+    sanskrit_util.shell
     ~~~~~~~~~~~~~~
 
     A convenient REPL for fixing errors in the tagger output.
@@ -12,7 +12,7 @@ from builtins import range
 from builtins import object
 import re
 
-from sanskrit import tagger
+from sanskrit_util import tagger
 
 
 class Color(object):

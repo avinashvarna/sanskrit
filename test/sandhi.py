@@ -11,8 +11,8 @@
 from builtins import object
 import pytest
 
-from sanskrit import Context
-from sanskrit.sandhi import Splitter, Joiner
+from sanskrit_util import Context
+from sanskrit_util.sandhi import Splitter, Joiner
 
 
 @pytest.fixture

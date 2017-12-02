@@ -9,7 +9,7 @@
 """
 
 from builtins import zip
-from sanskrit import sounds
+from sanskrit_util import sounds
 from . import TestCase
 
 

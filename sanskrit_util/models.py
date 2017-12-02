@@ -1,5 +1,5 @@
 """
-    sanskrit.models
+    sanskrit_util.models
     ~~~~~~~~~~~~~~~
 
     Statistical models.

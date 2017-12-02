@@ -10,7 +10,7 @@ Tests the :class:`~sanskrit.util.queue.PriorityQueue` class.
 
 from builtins import range
 import os
-from sanskrit.util import PriorityQueue
+from sanskrit_util.util import PriorityQueue
 from . import TestCase
 
 class QueueTestCase(TestCase):

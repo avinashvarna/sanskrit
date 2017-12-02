@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    sanskrit.language.query
+    sanskrit_util.query
     ~~~~~~~~~~~~~~~~~~~~~~~
 
     A simple interface for querying Sanskrit linguistic data.

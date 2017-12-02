@@ -8,10 +8,10 @@ Tests something.
 :license: MIT and BSD
 """
 
-from sanskrit import Context
-from sanskrit import setup as S  # ``as S`` avoids problems with nose
-from sanskrit.query import SimpleQuery
-from sanskrit.schema import *
+from sanskrit_util import Context
+from sanskrit_util import setup as S  # ``as S`` avoids problems with nose
+from sanskrit_util.query import SimpleQuery
+from sanskrit_util.schema import *
 
 from . import TestCase, config as cfg
 

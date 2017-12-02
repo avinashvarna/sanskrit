@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    sanskrit.schema
+    sanskrit_util.schema
     ~~~~~~~~~~~~~~~
 
     Schema for Sanskrit data.

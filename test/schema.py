@@ -8,9 +8,9 @@ Tests linguistic schema on various data.
 :license: MIT and BSD
 """
 
-from sanskrit import Context
-from sanskrit import setup
-from sanskrit.schema import *
+from sanskrit_util import Context
+from sanskrit_util import setup
+from sanskrit_util.schema import *
 
 from . import TestCase, config as cfg
 

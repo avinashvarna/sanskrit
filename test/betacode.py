@@ -10,7 +10,7 @@ Tests Greek transliteration.
 
 from __future__ import unicode_literals
 
-from sanskrit.transliterate import betacode as B
+from sanskrit_util.transliterate import betacode as B
 from unittest import TestCase
 
 

@@ -114,7 +114,7 @@ class Context(object):
 
     def build(self):
         """Build all data."""
-        from sanskrit import setup
+        from sanskrit_util import setup
         setup.run(self)
 
     def connect(self):
@@ -125,7 +125,7 @@ class Context(object):
                                                    bind=self.engine))
 
     def create_all(self):
-        """Create tables for every model in `sanskrit.schema`."""
+        """Create tables for every model in `sanskrit_util.schema`."""
         metadata = Base.metadata
         extant = {
             t.name for t in metadata.tables.values() if t.exists(self.engine)}
@@ -135,7 +135,7 @@ class Context(object):
                 print('  [ c ] {0}'.format(name))
 
     def drop_all(self):
-        """Drop all tables defined in `sanskrit.schema`."""
+        """Drop all tables defined in `sanskrit_util.schema`."""
         Base.metadata.drop_all(self.engine)
 
     def _build_enums(self):

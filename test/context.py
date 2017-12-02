@@ -9,7 +9,7 @@ Tests the :class:`~sanskrit.context.Context` class.
 """
 
 import os
-from sanskrit import Context
+from sanskrit_util import Context
 from . import TestCase, config as cfg
 
 

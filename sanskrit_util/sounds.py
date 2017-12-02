@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-    sanskrit.sounds
+    sanskrit_util.sounds
     ~~~~~~~~~~~~~~~
 
     Code for checking and transforming Sanskrit sounds. This module also
-    contains basic metrical functions (see :func:`sanskrit.sounds.meter`
-    and :func:`sanskrit.sounds.num_syllables`).
+    contains basic metrical functions (see :func:`sanskrit_util.sounds.meter`
+    and :func:`sanskrit_util.sounds.num_syllables`).
 
     All functions assume SLP1.
 
