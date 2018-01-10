@@ -10,8 +10,7 @@ import sys
 
 from sanskrit_util import util
 from sanskrit_util.schema import *
-
-import sqlalchemy.schema
+from sanskrit_util.context import Context
 
 # Populated in `add_enums`
 ENUM = {}
@@ -304,29 +303,17 @@ def add_verbal_indeclinables(ctx, root_map):
     session.commit()
 
 
-def add_participle_stems(ctx, root_map):
+def add_participle_stems(ctx):
     """Populates `ParticipleStem`."""
 
     session = ctx.session
-    root_map = root_map or {}
     mode = ENUM['mode']
     voice = ENUM['voice']
-    skipped = set()
     i = 0
 
     for row in util.read_csv(ctx.config['PARTICIPLE_STEMS']):
-        root = row['root']
-        hom = row['hom']
-
-        try:
-            root_id = root_map[(root, hom)]
-        except KeyError:
-            skipped.add((root, hom))
-            continue
-
         data = {
-            'name': row['stem'],
-            'root_id': root_id,
+            'name': row['stem'].split("#")[0],
             'mode_id': mode[row['mode']],
             'voice_id': voice[row['voice']]
         }
@@ -340,7 +327,6 @@ def add_participle_stems(ctx, root_map):
 
     session.commit()
     session.close()
-    print('Skipped', len(skipped), 'roots.')
 
 
 def add_nominal_endings(ctx):
@@ -410,37 +396,27 @@ def add_irregular_nouns(ctx):
     """Add irregular nouns to the database."""
 
     session = ctx.session
-    gender_group = ENUM['gender_group']
     gender = ENUM['gender']
     case = ENUM['case']
     number = ENUM['number']
 
-    with open(ctx.config['IRREGULAR_NOUNS']) as f:
-        for noun in yaml.load_all(f):
-            genders_id = gender_group[noun['genders']]
-            stem = NounStem(name=noun['name'], genders_id=genders_id)
-            session.add(stem)
-            session.flush()
+    seen_stems = {}  # stem -> id
+    for row in util.read_csv(ctx.config['IRREGULAR_NOUNS']):
+        stem = row['stem'].split("#")[0]
 
-            # Mark the stem as irregular
-            complete = noun['complete']
-            irreg = StemIrregularity(stem=stem, fully_described=complete)
-            session.add(irreg)
-            session.flush()
+        if stem not in seen_stems:
+            s = session.query(Stem).filter(Stem.name == stem).all()
+            msg = "Multiple stems for %s = %s" % (stem, s)
+            assert len(s) == 1, msg
+            seen_stems[stem] = s[0].id
 
-            util.tick(stem.name)
+        stem_id = seen_stems[stem]
+        session.add(Nominal(stem_id=stem_id, name=row['form'],
+                            gender_id=gender[row['form_gender']],
+                            case_id=case[row['case']],
+                            number_id=number[row['number']]))
 
-            for form in noun['forms']:
-                name = form['name']
-                gender_id = gender[form['gender']]
-                case_id = case[form['case']]
-                number_id = number[form['number']]
-
-                result = Noun(stem=stem, name=name, gender_id=gender_id,
-                              case_id=case_id, number_id=number_id)
-                session.add(result)
-                session.flush()
-
+    session.flush()
     session.commit()
     session.close()
 
@@ -531,7 +507,6 @@ def run(ctx):
     root_map = add_roots(ctx, prefix_map=prefix_map)
     add_verb_endings(ctx)
     add_verbs(ctx, root_map)
-    add_participle_stems(ctx, root_map)
     add_verbal_indeclinables(ctx, root_map)
     del prefix_map
 
@@ -539,7 +514,8 @@ def run(ctx):
     add_nominal_stems(ctx)
     add_nominal_endings(ctx)
     add_pronouns(ctx)
-    # add_irregular_nouns(ctx)
+    add_irregular_nouns(ctx)
+    add_participle_stems(ctx)
     # add_irregular_adjectives(ctx)
 
     print('Done.')
