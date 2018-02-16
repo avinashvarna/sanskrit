@@ -184,7 +184,7 @@ class FormTestCase(SchemaTestCase):
         g, c, n = (enum['gender']['m'], enum['case']['2'], enum['number']['s'])
 
         root = self.add_root('car')
-        part_stem = ParticipleStem(name='carat', root_id=root.id,
+        part_stem = ParticipleStem(name='carat',
                                    mode_id=enum['mode']['pres'],
                                    voice_id=enum['voice']['para'])
         session.add(part_stem)
@@ -199,7 +199,6 @@ class FormTestCase(SchemaTestCase):
         part = session.query(Participle).first()
         assert part.id is not None
         assert part.name == 'carantam'
-        assert part.root.name == 'car'
         assert part.stem.name == 'carat'
         assert part.gender_id == g
         assert part.case_id == c
