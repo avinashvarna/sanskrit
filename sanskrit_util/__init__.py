@@ -9,4 +9,3 @@ A general-purpose library for Sanskrit.
 """
 
 from .context import Context
-from .transliterate import betacode, sanscript
