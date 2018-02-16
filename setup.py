@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sanskrit_util',
-    version='0.1.1.dev22,
+    version='0.1.1.dev2',
     description='Sanskrit utilities',
     long_description='Collection of utilities for analyzing and working with Sanskrit',
 
@@ -25,7 +25,7 @@ setup(
     keywords='sanskrit',
 
     packages=find_packages(exclude=['docs', 'test*']),
-    install_requires=['sqlalchemy >= 0.7', 
+    install_requires=['sqlalchemy >= 0.7',
                       'future',
                       'six'],
     extras_require={
