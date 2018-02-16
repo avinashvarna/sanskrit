@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sanskrit_util',
-    version='0.1.1.dev1',
+    version='0.1.1.dev22,
     description='Sanskrit utilities',
     long_description='Collection of utilities for analyzing and working with Sanskrit',
 
