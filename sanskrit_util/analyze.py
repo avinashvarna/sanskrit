@@ -15,6 +15,8 @@ from collections import defaultdict, namedtuple
 from . import sounds, util
 from .schema import *
 
+import pprint
+
 
 Ending = namedtuple('Ending', ['name', 'length', 'stem_type', 'gender_id',
                                'case_id', 'number_id', 'compounded',
@@ -54,7 +56,7 @@ class SimpleAnalyzer(Analyzer):
         for e in self.session.query(NominalEnding):
             stem_type = e.stem_type
             is_cons = stem_type[-1] in sounds.CONSONANTS
-            if e.stem_type == "_": 
+            if e.stem_type == "_":
                 e.stem_type = ""
                 is_cons = True
 
@@ -104,18 +106,17 @@ class SimpleAnalyzer(Analyzer):
         stem_endings_map = defaultdict(set)
         endings = self.nominal_endings[word[::-1]]
         for e in endings:
-            truncated_stem = word[:-e.length] or word
+            if e.length > len(word):
+                continue
+            stem = word[:-e.length] + e.stem_type
             if e.is_consonant_stem:
                 # Stem must exist and end in a consonant.
-                if not truncated_stem:
+                if not stem:
                     continue
-                if truncated_stem[-1] in sounds.VOWELS:
+                if stem[-1] in sounds.VOWELS:
                     continue
-                if truncated_stem in sounds.CONSONANTS:
+                if stem in sounds.CONSONANTS:
                     continue
-                stem = truncated_stem
-            else:
-                stem = truncated_stem + e.stem_type
 
             stem_endings_map[stem].add(e)
 
@@ -140,15 +141,22 @@ class SimpleAnalyzer(Analyzer):
             else:
                 endings = stem_endings_map[name]
 
-            for e in endings:
+            if stem.pos_id == Tag.PARTICIPLE:
+                # Remove feminine endings in 'at'
+                endings = (e for e in endings if not (e.gender_id == 2 and (e.stem_type != 'at' or e.stem_type != 't')))
+
+            # Remove duplicates
+            endings = {(e.gender_id, e.case_id, e.number_id, e.compounded) for e in endings}
+
+            for gender_id, case_id, number_id, compounded in endings:
                 datum = {
                     'name': word,
                     'pos_id': stem.pos_id,
                     'stem': stem,
-                    'gender_id': e.gender_id,
-                    'case_id': e.case_id,
-                    'number_id': e.number_id,
-                    'compounded': e.compounded,
+                    'gender_id': gender_id,
+                    'case_id': case_id,
+                    'number_id': number_id,
+                    'compounded': compounded,
                 }
                 returned.append(Nominal(**datum))
 
