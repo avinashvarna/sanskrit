@@ -354,14 +354,13 @@ class ModifiedRoot(Root):
     modifications = association_proxy('mod_assocs', 'modification')
 
 
-class PrefixedModifiedRoot(PrefixedRoot, ModifiedRoot):
+class PrefixedModifiedRoot(PrefixedRoot):
 
     """A prefixed root with one or more modifications."""
 
     __mapper_args__ = {'polymorphic_identity': 3}
 
-    # `mod_assocs` and `modifications` are not defined automatically, despite
-    # the diamond inheritance for this class.
+    # define `mod_assocs` and `modifications` explicitly for ModifiedRoot
     mod_assocs = relationship('RootModAssociation',
                               collection_class=ordering_list('position'),
                               order_by='RootModAssociation.position')
